@@ -1,16 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Routes from "./routes";
+import { Container, Row } from "react-bootstrap";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Container>
+        <Row>
+          <Routes />
+        </Row>
+      </Container>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
