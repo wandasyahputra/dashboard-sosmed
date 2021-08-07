@@ -5,7 +5,7 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
-import "./App.css";
+import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Routes from "./routes";
 import { Container, Row } from "react-bootstrap";
