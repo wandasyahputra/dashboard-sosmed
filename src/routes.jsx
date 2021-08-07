@@ -11,8 +11,8 @@ import { Users } from "pages/users";
 const Routes = () => (
   <Router>
     <Switch>
-      <Route exact path="/user" component={Users} />
-      <Redirect to="/user" />
+      <Route exact path="/users" component={Users} />
+      <Redirect to="/users" />
     </Switch>
   </Router>
 );
