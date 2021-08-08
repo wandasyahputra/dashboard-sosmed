@@ -55,4 +55,3 @@ Show photo of album
 ## Todos
 
 - [ ] login page
-- [ ] test

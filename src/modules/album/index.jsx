@@ -28,12 +28,9 @@ export const AlbumModule = (props) => {
   };
 
   useEffect(() => {
-    console.log("user");
     if (user) {
-      console.log("user");
       dispatch(setAlbumUser(user));
     } else if (!albumUser) {
-      console.log("user");
       dispatch(fetchUser(userId));
     }
     if (

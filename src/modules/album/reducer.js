@@ -14,7 +14,6 @@ export const fetchUser = createAsyncThunk("album/fetchUser", async (id) => {
 });
 
 export const fetchAlbum = createAsyncThunk("album/fetchAlbum", async (id) => {
-  console.log(id);
   const response = await fetchRemoteAlbum(id);
   return response.data;
 });
