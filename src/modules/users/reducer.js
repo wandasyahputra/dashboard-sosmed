@@ -24,11 +24,16 @@ export const usersSlice = createSlice({
         state.status = "idle";
         state.value = action.payload;
         state.validUntil = Date.now() + 300000;
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        state.status = "error";
       });
   },
 });
 
 export const selectData = (state) => state.users.value;
+export const selectUser = (userId) => (state) =>
+  state.users.value.find((a) => a.id === userId);
 export const selectStatus = (state) => state.users.status;
 export const selectValidUntil = (state) => state.users.validUntil;
 

@@ -6,9 +6,9 @@ import {
   selectValidUntil,
 } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Table } from "react-bootstrap";
-import ErrorPage from "components/error-page";
-import { TableShimmer } from "./components/table-shimmer";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { TableGrid } from "components/table";
 
 export const UsersModule = () => {
   const dispatch = useDispatch();
@@ -26,41 +26,47 @@ export const UsersModule = () => {
     }
   }, [dispatch, validUntil]);
 
+  const viewTemplate = (rD) => {
+    return (
+      <>
+        <Link to={`users/${rD.id}/post`}>
+          <Button variant="outline-primary" className="me-2">
+            Post
+          </Button>
+        </Link>
+        <Button variant="outline-primary">Album</Button>
+      </>
+    );
+  };
+
+  const columns = [
+    {
+      name: "Name",
+      binding: "name",
+    },
+    {
+      name: "User Name",
+      binding: "username",
+    },
+    {
+      name: "Email",
+      binding: "email",
+    },
+    {
+      name: "View",
+      binding: "view",
+      template: viewTemplate,
+    },
+  ];
+
   return (
     <React.Fragment>
-      {loadStatus !== "loading" && loadStatus !== "error" && (
-        <Table hover>
-          <thead>
-            <tr>
-              <td>No</td>
-              <td>Name</td>
-              <td>Username</td>
-              <td>Email</td>
-              <td>View</td>
-            </tr>
-          </thead>
-          <tbody>
-            {userList.map((item, key) => (
-              <tr key={`${item.email}-${key}`}>
-                <td>{key + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.username}</td>
-                <td>{item.email}</td>
-                <td>
-                  <Button variant="outline-primary" className="me-2">
-                    Post
-                  </Button>
-                  <Button variant="outline-primary">Album</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-      {loadStatus === "loading" && <TableShimmer />}
-      {loadStatus !== "loading" && loadStatus === "error" && (
-        <ErrorPage reFetch={fetchData} />
-      )}
+      <TableGrid
+        columns={columns}
+        data={userList}
+        status={loadStatus}
+        errorFetch={fetchData}
+      />
     </React.Fragment>
   );
 };
