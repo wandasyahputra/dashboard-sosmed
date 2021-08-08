@@ -7,6 +7,7 @@ import {
   setDeleteStatus,
   selectDeleteStatus,
   deleteComment,
+  selectPostId,
 } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "components/alert";
@@ -24,6 +25,7 @@ export const CommentModule = (props) => {
   const validUntil = useSelector(selectValidUntil);
   const comment = useSelector(selectComment);
   const status = useSelector(selectStatus);
+  const commentPostId = useSelector(selectPostId);
   const deleteStatus = useSelector(selectDeleteStatus);
 
   const fetchData = () => {
@@ -31,7 +33,7 @@ export const CommentModule = (props) => {
   };
 
   useEffect(() => {
-    if (validUntil < Date.now()) {
+    if (validUntil < Date.now() || commentPostId !== postId) {
       dispatch(fetchComment(postId));
     }
     if (deleteStatus === "success") {
@@ -39,7 +41,7 @@ export const CommentModule = (props) => {
       showAlert("Success", "Comment deleted succesfully");
       dispatch(setDeleteStatus());
     }
-  }, [dispatch, validUntil, postId, deleteStatus]);
+  }, [dispatch, validUntil, postId, deleteStatus, commentPostId]);
 
   const handleDeleteAction = (action) => {
     switch (action) {

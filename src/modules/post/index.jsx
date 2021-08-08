@@ -44,7 +44,7 @@ export const PostModule = (props) => {
     }
     if (
       validUntil < Date.now() ||
-      (Boolean(postUser.id) && postUser.id !== userId)
+      (Boolean(postUser) && postUser.id !== userId)
     ) {
       dispatch(fetchPost(userId));
     }
@@ -131,7 +131,7 @@ export const PostModule = (props) => {
 
   return (
     <React.Fragment>
-      <Col md={6}>Created by {postUser.name}</Col>
+      <Col md={6}>Created by {postUser && postUser.name}</Col>
       <Col md={6} className="text-end">
         <AsyncButton
           variant="outline-secondary"
@@ -148,7 +148,7 @@ export const PostModule = (props) => {
         columns={columns}
         data={postList}
         status={loadStatus}
-        errorFetch={fetchData}
+        fetchData={fetchData}
       />
       <ModalConfirmation
         show={Boolean(deleteData)}

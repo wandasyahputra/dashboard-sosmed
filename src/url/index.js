@@ -17,3 +17,7 @@ export const ADD_COMMENT = `${baseUrl}comments`;
 export const UPDATE_COMMENT = (id) => `${baseUrl}comments/${id}`;
 export const DELETE_COMMENT = (id) => `${baseUrl}comments/${id}`;
 export const FETCH_POSTS_COMMENT = (id) => `${baseUrl}comments?postId=${id}`;
+
+// ALBUMS
+export const FETCH_ALBUMS_USER = (id) => `${baseUrl}albums?userId=${id}`;
+export const FETCH_ALBUMS_PHOTO = (id) => `${baseUrl}photos?albumId=${id}`;

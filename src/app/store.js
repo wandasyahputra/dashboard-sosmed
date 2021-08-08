@@ -3,6 +3,7 @@ import postSlice from "modules/post/reducer";
 import usersSlice from "modules/users/reducer";
 import postDetailSlice from "modules/post-detail/reducer";
 import commentSlice from "modules/comment/reducer";
+import albumSlice from "modules/album/reducer";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     post: postSlice,
     postDetail: postDetailSlice,
     comment: commentSlice,
+    album: albumSlice,
   },
 });

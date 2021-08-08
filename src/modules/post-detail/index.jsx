@@ -38,10 +38,10 @@ export const PostDetailModule = (props) => {
     } else {
       dispatch(fetchUser(userId));
     }
-    if (validUntil < Date.now()) {
+    if (validUntil < Date.now() || (postData && postData.id !== postId)) {
       dispatch(fetchPostDetail(postId));
     }
-  }, [dispatch, validUntil, user, userId, postId]);
+  }, [dispatch, validUntil, user, userId, postId, postData]);
 
   return (
     <React.Fragment>
@@ -55,7 +55,7 @@ export const PostDetailModule = (props) => {
               Close
             </AsyncButton>
           </Col>
-          <div className="mb-4">Created by {postUser.name}</div>
+          <div className="mb-4">Created by {postUser && postUser.name}</div>
           <p>{postData.body}</p>
         </>
       )}

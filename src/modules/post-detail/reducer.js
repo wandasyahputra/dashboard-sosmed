@@ -2,9 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchRemoteUser, fetchRemotePostDetail } from "./fetchAPI";
 
 const initialState = {
-  user: {},
+  user: null,
   post: [],
   validUntil: 0,
+  postId: 0,
   status: "loading",
 };
 
@@ -42,6 +43,8 @@ export const postDetailSlice = createSlice({
       })
       .addCase(fetchPostDetail.fulfilled, (state, action) => {
         state.post = action.payload;
+        state.postId = action.payload.postId;
+        state.validUntil = Date.now() + 300000;
         state.status = "idle";
       })
       .addCase(fetchPostDetail.rejected, (state, action) => {

@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   data: [],
-  user: {},
+  user: null,
   deleteStatus: "idle",
   editorStatus: "idle",
   validUntil: 0,

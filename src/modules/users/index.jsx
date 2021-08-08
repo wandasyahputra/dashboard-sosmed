@@ -29,12 +29,14 @@ export const UsersModule = () => {
   const viewTemplate = (rD) => {
     return (
       <>
-        <Link to={`users/${rD.id}/post`}>
+        <Link to={`/users/${rD.id}/post`}>
           <Button variant="outline-primary" className="me-2">
             Post
           </Button>
         </Link>
-        <Button variant="outline-primary">Album</Button>
+        <Link to={`/users/${rD.id}/album`}>
+          <Button variant="outline-primary">Album</Button>
+        </Link>
       </>
     );
   };
@@ -65,7 +67,7 @@ export const UsersModule = () => {
         columns={columns}
         data={userList}
         status={loadStatus}
-        errorFetch={fetchData}
+        fetchData={fetchData}
       />
     </React.Fragment>
   );
