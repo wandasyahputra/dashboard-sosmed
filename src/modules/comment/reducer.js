@@ -101,7 +101,7 @@ export const commentSlice = createSlice({
   },
 });
 
-export const { setDeleteStatus } = commentSlice.actions;
+export const { setDeleteStatus, setEditorStatus } = commentSlice.actions;
 
 export const selectComment = (state) => state.comment.comment;
 export const selectStatus = (state) => state.comment.status;

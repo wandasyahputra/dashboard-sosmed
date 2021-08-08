@@ -14,18 +14,20 @@ import { AsyncButton } from "components/button";
 import { Col, Row } from "react-bootstrap";
 import ErrorPage from "components/error-page";
 import { ModalConfirmation } from "components/confirmation";
+import { ModalEditor } from "./components/modalEditor";
 
 export const CommentModule = (props) => {
   const { postId } = props;
   const dispatch = useDispatch();
   const [deleteData, setDeleteData] = useState(null);
+  const [editData, setEditData] = useState(null);
   const validUntil = useSelector(selectValidUntil);
   const comment = useSelector(selectComment);
   const status = useSelector(selectStatus);
   const deleteStatus = useSelector(selectDeleteStatus);
 
   const fetchData = () => {
-    dispatch(fetchComment());
+    dispatch(fetchComment(postId));
   };
 
   useEffect(() => {
@@ -46,6 +48,20 @@ export const CommentModule = (props) => {
         break;
       case true:
         dispatch(deleteComment(deleteData.id));
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleEditorAction = (action) => {
+    switch (action) {
+      case null:
+        setEditData(null);
+        break;
+      case true:
+        setEditData(null);
+        fetchData();
         break;
       default:
         break;
@@ -79,7 +95,14 @@ export const CommentModule = (props) => {
 
   return (
     <React.Fragment>
-      <h4 className="mt-4">Comment</h4>
+      <Col md={8}>
+        <h4 className="mt-4 mb-3">Comment</h4>
+      </Col>
+      <Col md={4} className="mt-4 mb-3 text-end">
+        <AsyncButton onClick={() => setEditData("add")}>
+          Add Comment
+        </AsyncButton>
+      </Col>
       {status === "idle" &&
         comment.map((item, key) => (
           <Row key={`comment-${key}`}>
@@ -97,7 +120,11 @@ export const CommentModule = (props) => {
               >
                 Delete
               </AsyncButton>
-              <AsyncButton size="sm" variant="outline-primary">
+              <AsyncButton
+                size="sm"
+                variant="outline-primary"
+                onClick={() => setEditData(item)}
+              >
                 Edit
               </AsyncButton>
             </Col>
@@ -111,6 +138,14 @@ export const CommentModule = (props) => {
         title="Delete Comment"
         desc="Are you sure to delete this comment? Action can't be undone"
       />
+      {Boolean(editData) && (
+        <ModalEditor
+          show={Boolean(editData)}
+          data={editData}
+          postId={postId}
+          onAction={handleEditorAction}
+        />
+      )}
     </React.Fragment>
   );
 };
