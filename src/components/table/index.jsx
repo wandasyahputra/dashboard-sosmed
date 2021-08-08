@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import ErrorPage from "components/error-page";
+import { Link } from "react-router-dom";
 
 export const TableGrid = (props) => {
   const { columns, data, status, fetchData } = props;
@@ -42,6 +43,18 @@ export const TableGrid = (props) => {
     );
   };
 
+  const renderCell = (col, item) => {
+    if (col.link) {
+      return (
+        <Link to={col.link(item)}>
+          {!col.template ? item[col.binding] : col.template(item)}
+        </Link>
+      );
+    } else {
+      return !col.template ? item[col.binding] : col.template(item);
+    }
+  };
+
   return (
     <>
       <Table hover>
@@ -61,7 +74,7 @@ export const TableGrid = (props) => {
                 <td>{keyRow + 1}</td>
                 {columns.map((col, keyColumn) => (
                   <td key={`${col.binding}-${keyColumn}`}>
-                    {!col.template ? item[col.binding] : col.template(item)}
+                    {renderCell(col, item)}
                   </td>
                 ))}
               </tr>

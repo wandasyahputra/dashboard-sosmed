@@ -48,7 +48,7 @@ export const PostModule = (props) => {
     {
       name: "Title",
       binding: "title",
-      link: true,
+      link: (rD) => `users/${userId}/posts/${rD.id}`,
       template: (rD) => cutter(rD, "title"),
     },
     {
