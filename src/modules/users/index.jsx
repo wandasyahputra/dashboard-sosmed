@@ -28,7 +28,7 @@ export const UsersModule = () => {
 
   const viewTemplate = (rD) => {
     return (
-      <>
+      <div className="text-nowrap">
         <Link to={`/users/${rD.id}/post`}>
           <Button variant="outline-primary" className="me-2">
             Post
@@ -37,7 +37,7 @@ export const UsersModule = () => {
         <Link to={`/users/${rD.id}/album`}>
           <Button variant="outline-primary">Album</Button>
         </Link>
-      </>
+      </div>
     );
   };
 

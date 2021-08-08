@@ -1,64 +1,89 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   fetchUser,
   selectData,
   selectStatus,
   selectValidUntil,
-  selectAlbumUser,
-  setAlbumUser,
-  fetchAlbum,
+  selectPhotoUser,
+  selectAlbumId,
+  setPhotoUser,
+  fetchPhoto,
 } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { Col } from "react-bootstrap";
+import { Col, Card } from "react-bootstrap";
 import { selectUser } from "modules/users/reducer";
-import { TableGrid } from "components/table";
 import { AsyncButton } from "components/button/index";
+import { ModalPhoto } from "./components/modalPhoto";
+import ErrorPage from "components/error-page";
 
-export const AlbumModule = (props) => {
-  const { userId } = props;
+export const PhotoModule = (props) => {
+  const { userId, albumId } = props;
   const dispatch = useDispatch();
-  const albumList = useSelector(selectData);
+  const photoList = useSelector(selectData);
+  const [openPhoto, setOpenPhoto] = useState(false);
   const user = useSelector(selectUser(userId));
-  const albumUser = useSelector(selectAlbumUser);
+  const photoUser = useSelector(selectPhotoUser);
   const validUntil = useSelector(selectValidUntil);
   const loadStatus = useSelector(selectStatus);
+  const photoAlbumId = useSelector(selectAlbumId);
 
   const fetchData = () => {
-    dispatch(fetchAlbum(userId));
+    dispatch(fetchPhoto(albumId));
   };
 
   useEffect(() => {
-    console.log("user");
     if (user) {
-      console.log("user");
-      dispatch(setAlbumUser(user));
-    } else if (!albumUser) {
-      console.log("user");
+      dispatch(setPhotoUser(user));
+    } else if (!photoUser) {
       dispatch(fetchUser(userId));
     }
-    if (
-      validUntil < Date.now() ||
-      (Boolean(albumUser) && albumUser.id !== userId)
-    ) {
-      dispatch(fetchAlbum(userId));
+    if (validUntil < Date.now() || photoAlbumId !== albumId) {
+      dispatch(fetchPhoto(albumId));
     }
-  }, [dispatch, validUntil, user, userId, albumUser]);
+  }, [dispatch, validUntil, user, userId, photoUser, photoAlbumId, albumId]);
 
   const goBack = () => {
     window.history.back();
   };
 
-  const columns = [
-    {
-      name: "Title",
-      binding: "title",
-      link: (rD) => `/users/${userId}/album/${rD.id}`,
-    },
-  ];
+  const renderLoading = () => {
+    return (
+      <>
+        <Card style={{ width: "18rem" }} className="m-3 p-0 cursor-pointer">
+          <div className="shine shine-image"></div>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <div className="shine shine-line mb-2"></div>
+            <div className="shine shine-line"></div>
+          </Card.Body>
+        </Card>
+        <Card style={{ width: "18rem" }} className="m-3 p-0 cursor-pointer">
+          <div className="shine shine-image"></div>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <div className="shine shine-line mb-2"></div>
+            <div className="shine shine-line"></div>
+          </Card.Body>
+        </Card>
+        <Card style={{ width: "18rem" }} className="m-3 p-0 cursor-pointer">
+          <div className="shine shine-image"></div>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <div className="shine shine-line mb-2"></div>
+            <div className="shine shine-line"></div>
+          </Card.Body>
+        </Card>
+        <Card style={{ width: "18rem" }} className="m-3 p-0 cursor-pointer">
+          <div className="shine shine-image"></div>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <div className="shine shine-line mb-2"></div>
+            <div className="shine shine-line"></div>
+          </Card.Body>
+        </Card>
+      </>
+    );
+  };
 
   return (
     <React.Fragment>
-      <Col md={6}>Created by {albumUser && albumUser.name}</Col>
+      <Col md={6}>Created by {photoUser && photoUser.name}</Col>
       <Col md={6} className="text-end">
         <AsyncButton
           variant="outline-secondary"
@@ -68,12 +93,25 @@ export const AlbumModule = (props) => {
           Close
         </AsyncButton>
       </Col>
-      <TableGrid
-        columns={columns}
-        data={albumList}
-        status={loadStatus}
-        errorFetch={fetchData}
-      />
+      {loadStatus === "loading" && renderLoading()}
+      {loadStatus === "idle" &&
+        photoList.map((item, key) => (
+          <Card
+            style={{ width: "18rem" }}
+            key={`photo-${key}`}
+            className="m-3 p-0 cursor-pointer"
+            onClick={() => setOpenPhoto(item)}
+          >
+            <Card.Img variant="top" className="" src={item.thumbnailUrl} />
+            <Card.Body className="d-flex flex-column justify-content-between">
+              <div>{item.title}</div>
+            </Card.Body>
+          </Card>
+        ))}
+      {openPhoto && (
+        <ModalPhoto data={openPhoto} onAction={() => setOpenPhoto(false)} />
+      )}
+      {loadStatus === "error" && <ErrorPage reFetch={fetchData} />}
     </React.Fragment>
   );
 };

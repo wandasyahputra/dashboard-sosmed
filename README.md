@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# DASHBOARD SOSMED
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Dashboard Sosmed is a application for show user and data of user
+Demo of this project can be found on [http://socialmedia-dashboard.s3-website.us-east-2.amazonaws.com/](http://socialmedia-dashboard.s3-website.us-east-2.amazonaws.com/)
 
-In the project directory, you can run:
+## Table Of Contents
 
-### `npm start`
+1.  [How To Deploy](#how-to-deploy)
+2.  [List Of Feature](#list-of-feature)
+3.  [Bugs](#bugs)
+4.  [Todos](#todos)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How To Deploy
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1.  install git
+2.  clone frontend repo
 
-### `npm test`
+```
+git clone https://github.com/wandasyahputra/dashboard-sosmed.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3.  install frontend package and run
 
-### `npm run build`
+```
+yarn install
+yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## List Of Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### VIEW USER
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Show you all user that you have
 
-### `npm run eject`
+### VIEW, ADD, EDIT, DELETE POST OF USER
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Allow you to manage post of selected user
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### VIEW, ADD, EDIT, DELETE COMMENT OF POST
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Allow you to manage comment of a post
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### VIEW ALBUM OF USER
 
-## Learn More
+Show list album of user
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### VIEW PHOTO OF ALBUM
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Show photo of album
 
-### Code Splitting
+## Bugs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Todos
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] login page
+- [ ] test

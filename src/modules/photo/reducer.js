@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchRemoteUser, fetchRemoteAlbum } from "./fetchAPI";
+import { fetchRemoteUser, fetchRemoteAlbumPhoto } from "./fetchAPI";
 
 const initialState = {
   data: [],
+  albumId: 0,
   user: null,
   validUntil: 0,
   status: "idle",
@@ -14,7 +15,7 @@ export const fetchUser = createAsyncThunk("photo/fetchUser", async (id) => {
 });
 
 export const fetchPhoto = createAsyncThunk("photo/fetchPhoto", async (id) => {
-  const response = await fetchRemoteAlbum(id);
+  const response = await fetchRemoteAlbumPhoto(id);
   return response.data;
 });
 
@@ -38,6 +39,7 @@ export const photoSlice = createSlice({
         state.status = "idle";
         state.data = action.payload;
         state.validUntil = Date.now() + 300000;
+        state.albumId = action.meta.arg;
       })
       .addCase(fetchPhoto.rejected, (state) => {
         state.status = "error";
@@ -51,5 +53,6 @@ export const selectPhotoUser = (state) => state.photo.user;
 export const selectData = (state) => state.photo.data;
 export const selectStatus = (state) => state.photo.status;
 export const selectValidUntil = (state) => state.photo.validUntil;
+export const selectAlbumId = (state) => state.photo.albumId;
 
 export default photoSlice.reducer;

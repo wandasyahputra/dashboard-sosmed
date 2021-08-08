@@ -55,6 +55,13 @@ export const PostModule = (props) => {
     }
   }, [dispatch, validUntil, user, userId, deleteStatus, postUser]);
 
+  /**
+   * Cut long string.
+   *
+   * @param  {Object} rD        Current string.
+   * @param  {String} binding   object key.
+   * @return {String}           New string.
+   */
   const cutter = (rD, binding) => {
     const maxLength = binding === "title" ? 15 : 30;
     if (rD[binding].length > maxLength) {

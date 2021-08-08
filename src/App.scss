@@ -12,6 +12,10 @@
     height: 15px;
     border-radius: 8px;
   }
+  &-image {
+    width: 100%;
+    height: 286px;
+  }
 }
 
 @keyframes placeholderShimmer {
@@ -30,4 +34,8 @@
 
 .fs-7 {
   font-size: 0.8rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

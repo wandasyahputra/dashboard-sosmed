@@ -7,7 +7,7 @@ import {
 } from "./fetchAPI";
 
 const initialState = {
-  post_id: 0,
+  postId: 0,
   comment: [],
   validUntil: 0,
   status: "idle",
@@ -65,7 +65,7 @@ export const commentSlice = createSlice({
       })
       .addCase(fetchComment.fulfilled, (state, action) => {
         state.comment = action.payload;
-        state.post_id = action.meta.arg;
+        state.postId = action.meta.arg;
         state.status = "idle";
         state.validUntil = Date.now() + 300000;
       })
@@ -109,6 +109,6 @@ export const selectStatus = (state) => state.comment.status;
 export const selectValidUntil = (state) => state.comment.validUntil;
 export const selectDeleteStatus = (state) => state.comment.deleteStatus;
 export const selectEditorStatus = (state) => state.comment.editorStatus;
-export const selectPostId = (state) => state.comment.post_id;
+export const selectPostId = (state) => state.comment.postId;
 
 export default commentSlice.reducer;

@@ -11,6 +11,7 @@ import { Post } from "pages/post";
 import { Alert } from "components/alert";
 import { PostDetail } from "pages/post-detail";
 import { Album } from "pages/album";
+import { Photo } from "pages/photo";
 
 const Routes = () => (
   <Router>
@@ -20,7 +21,7 @@ const Routes = () => (
       <Route exact path="/users/:userId/post" component={Post} />
       <Route exact path="/users/:userId/post/:postId" component={PostDetail} />
       <Route exact path="/users/:userId/album" component={Album} />
-      <Route exact path="/users/:userId/album/:albumId" component={Album} />
+      <Route exact path="/users/:userId/album/:albumId" component={Photo} />
       <Redirect to="/users" />
     </Switch>
   </Router>
