@@ -39,10 +39,13 @@ export const PostModule = (props) => {
   useEffect(() => {
     if (user) {
       dispatch(setPostUser(user));
-    } else {
+    } else if (!postUser) {
       dispatch(fetchUser(userId));
     }
-    if (validUntil < Date.now()) {
+    if (
+      validUntil < Date.now() ||
+      (Boolean(postUser.id) && postUser.id !== userId)
+    ) {
       dispatch(fetchPost(userId));
     }
     if (deleteStatus === "success") {
@@ -50,9 +53,7 @@ export const PostModule = (props) => {
       showAlert("Success", "Post deleted succesfully");
       dispatch(setDeleteStatus());
     }
-  }, [dispatch, validUntil, user, userId, deleteStatus]);
-
-  useEffect(() => {});
+  }, [dispatch, validUntil, user, userId, deleteStatus, postUser]);
 
   const cutter = (rD, binding) => {
     const maxLength = binding === "title" ? 15 : 30;
@@ -109,7 +110,7 @@ export const PostModule = (props) => {
     {
       name: "Title",
       binding: "title",
-      link: (rD) => `users/${userId}/posts/${rD.id}`,
+      link: (rD) => `/users/${userId}/post/${rD.id}`,
       template: (rD) => cutter(rD, "title"),
     },
     {
@@ -126,7 +127,12 @@ export const PostModule = (props) => {
 
   return (
     <React.Fragment>
-      <Col>Created by {postUser.name}</Col>
+      <Col md={6}>Created by {postUser.name}</Col>
+      <Col md={6} className="text-end">
+        <AsyncButton variant="primary" onClick={() => setEditData("add")}>
+          Add Post
+        </AsyncButton>
+      </Col>
       <TableGrid
         columns={columns}
         data={postList}

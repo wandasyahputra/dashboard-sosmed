@@ -9,6 +9,7 @@ import {
 import { Users } from "pages/users";
 import { Post } from "pages/post";
 import { Alert } from "components/alert";
+import { PostDetail } from "pages/post-detail";
 
 const Routes = () => (
   <Router>
@@ -16,6 +17,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/users" component={Users} />
       <Route exact path="/users/:userId/post" component={Post} />
+      <Route exact path="/users/:userId/post/:postId" component={PostDetail} />
       <Redirect to="/users" />
     </Switch>
   </Router>

@@ -44,11 +44,19 @@ export const ModalEditor = (props) => {
   }, [dispatch, validUntil, saveStatus, onAction]);
 
   useEffect(() => {
-    setValue(data);
+    if (data !== "add") {
+      setValue(data);
+    }
   }, [data]);
 
   const handleSave = () => {
-    if (value.id !== 0) dispatch(editPost({ id: value.id, data: value }));
+    const data = {
+      userId: value.userId,
+      body: value.body,
+      title: value.title,
+    };
+    if (value.id !== 0)
+      dispatch(editPost({ id: value.id, data: { ...data, id: value.id } }));
     else dispatch(postPost(value));
   };
 
@@ -76,6 +84,9 @@ export const ModalEditor = (props) => {
                 value={value.userId}
                 onChange={(e) => onChange(e, "userId")}
               >
+                <option disabled value="">
+                  Please Select
+                </option>
                 {userList.map((item, key) => (
                   <option
                     key={`option-${key}`}
@@ -121,6 +132,9 @@ export const ModalEditor = (props) => {
         <AsyncButton
           variant="outline-primary"
           onClick={handleSave}
+          disabled={
+            value.userId === "" || value.title === "" || value.body === ""
+          }
           busy={loadStatus === "loading" || saveStatus === "loading"}
         >
           Save Changes
