@@ -5,7 +5,7 @@ const initialState = {
   user: {},
   post: [],
   validUntil: 0,
-  status: "idle",
+  status: "loading",
 };
 
 export const fetchUser = createAsyncThunk(
@@ -27,7 +27,7 @@ export const fetchPostDetail = createAsyncThunk(
 export const postDetailSlice = createSlice({
   name: "postdetail",
   initialState,
-  reducer: {
+  reducers: {
     setPostDetailUser: (state, action) => {
       state.user = action.payload;
     },
@@ -43,6 +43,9 @@ export const postDetailSlice = createSlice({
       .addCase(fetchPostDetail.fulfilled, (state, action) => {
         state.post = action.payload;
         state.status = "idle";
+      })
+      .addCase(fetchPostDetail.rejected, (state, action) => {
+        state.status = "error";
       });
   },
 });

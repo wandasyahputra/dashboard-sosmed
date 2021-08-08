@@ -10,8 +10,10 @@ import {
 } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "modules/users/reducer";
-import { Col } from "react-bootstrap";
+import ErrorPage from "components/error-page";
 import Title from "components/title";
+import { Col } from "react-bootstrap";
+import { AsyncButton } from "components/button";
 
 export const PostDetailModule = (props) => {
   const { userId, postId } = props;
@@ -21,6 +23,14 @@ export const PostDetailModule = (props) => {
   const postData = useSelector(selectData);
   const validUntil = useSelector(selectValidUntil);
   const loadStatus = useSelector(selectStatus);
+
+  const fetchPost = () => {
+    dispatch(fetchPostDetail(postId));
+  };
+
+  const goBack = () => {
+    window.history.back();
+  };
 
   useEffect(() => {
     if (user) {
@@ -35,9 +45,33 @@ export const PostDetailModule = (props) => {
 
   return (
     <React.Fragment>
-      <Title title={postData && postData.title} />
-      <div className="mb-4">Created by {postUser.name}</div>
-      <p>{postData && postData.body}</p>
+      {loadStatus === "idle" && (
+        <>
+          <Col xs={11}>
+            <Title title={postData.title} />
+          </Col>
+          <Col xs={1}>
+            <AsyncButton className="mt-4" onClick={goBack}>
+              Close
+            </AsyncButton>
+          </Col>
+          <div className="mb-4">Created by {postUser.name}</div>
+          <p>{postData.body}</p>
+        </>
+      )}
+      {loadStatus === "loading" && (
+        <div>
+          <div
+            className="shine shine-line mt-4 mb-3 w-75"
+            style={{ height: 30 }}
+          ></div>
+          <div className="shine shine-line mb-4 w-25"></div>
+          <div className="shine shine-line mb-2"></div>
+          <div className="shine shine-line mb-2"></div>
+          <div className="shine shine-line mb-2"></div>
+        </div>
+      )}
+      {loadStatus === "error" && <ErrorPage reFetch={fetchPost} />}
     </React.Fragment>
   );
 };

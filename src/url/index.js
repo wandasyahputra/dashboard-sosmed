@@ -11,4 +11,9 @@ export const UPDATE_POST = (id) => `${baseUrl}posts/${id}`;
 export const DELETE_POST = (id) => `${baseUrl}posts/${id}`;
 export const FETCH_POSTS_DETAIL = (id) => `${baseUrl}posts?id=${id}`;
 export const FETCH_POSTS_USER = (id) => `${baseUrl}posts?userId=${id}`;
+
+// COMMENTS
+export const ADD_COMMENT = `${baseUrl}comments`;
+export const UPDATE_COMMENT = (id) => `${baseUrl}comments/${id}`;
+export const DELETE_COMMENT = (id) => `${baseUrl}comments/${id}`;
 export const FETCH_POSTS_COMMENT = (id) => `${baseUrl}comments?postId=${id}`;

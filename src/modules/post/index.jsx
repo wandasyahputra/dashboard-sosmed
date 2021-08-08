@@ -62,6 +62,10 @@ export const PostModule = (props) => {
     } else return rD[binding];
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   const handleDeleteAction = (action) => {
     switch (action) {
       case null:
@@ -93,7 +97,7 @@ export const PostModule = (props) => {
     return (
       <div className="text-nowrap">
         <AsyncButton
-          variant="outline-primary"
+          variant="outline-danger"
           className="me-2"
           onClick={() => setDeleteData(rD)}
         >
@@ -129,6 +133,13 @@ export const PostModule = (props) => {
     <React.Fragment>
       <Col md={6}>Created by {postUser.name}</Col>
       <Col md={6} className="text-end">
+        <AsyncButton
+          variant="outline-secondary"
+          className="me-2"
+          onClick={goBack}
+        >
+          Close
+        </AsyncButton>
         <AsyncButton variant="primary" onClick={() => setEditData("add")}>
           Add Post
         </AsyncButton>

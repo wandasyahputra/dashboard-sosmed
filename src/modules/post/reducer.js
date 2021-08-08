@@ -74,6 +74,12 @@ export const postSlice = createSlice({
       .addCase(fetchPost.rejected, (state) => {
         state.status = "error";
       })
+      .addCase(postPost.pending, (state) => {
+        state.editorStatus = "loading";
+      })
+      .addCase(postPost.fulfilled, (state) => {
+        state.editorStatus = "success";
+      })
       .addCase(editPost.pending, (state) => {
         state.editorStatus = "loading";
       })
